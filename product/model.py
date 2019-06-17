@@ -11,7 +11,7 @@ class Product:
     def insertProduct(self, **kwargs):
         ''' Insert a new product in database '''
         product = ProductSchema(kwargs['id'], kwargs['name'],
-                                kwargs['sku'], kwargs['description'])
+                                kwargs['sku'], kwargs['description'],kwargs['active'])
         db.session.add(product)
         db.session.commit()
         return product

@@ -26,26 +26,26 @@ class Product:
         if not f:
             return ErrorResponse.sendResponse(ErrorResponse.constants['NO_FILE_FOUND'])
         else:
-            #saving and creating absolute path
+            # saving and creating absolute path
             filepath = realpath(secure_filename(f.filename))
             f.save(filepath)
             productHelper = ProductHelper()
-            #start a seperate thread for upload the file
+            # start a seperate thread for upload the file
             Thread(target=productHelper.uploadFile,
                    args=(str(filepath),)).start()
             return SuccessResponse.sendResponse(SuccessResponse.constants['UPLOAD_SUCCESSFULL'], {})
 
     @staticmethod
     def getProduct(id):
-       """
-            Returns the product details for an id
-
-            parameters:
-            string:id - id of the product
-
-            returns:
-            string:success response
         """
+             Returns the product details for an id
+
+             parameters:
+             string:id - id of the product
+
+             returns:
+             string:success response
+         """
         product = ProductModel()
         productData = product.getProduct(id)
         if productData != None:

@@ -1,13 +1,12 @@
 
 import json
 
+
 class ErrorResponse:
 
-     """
+    """
         Error Response Class to handle all the Success of the Server
     """
-
-
     constants = {
 
         'NO_FILE_FOUND': {'msg': 'No file found', 'code': 200},
@@ -15,7 +14,8 @@ class ErrorResponse:
         'UPLOAD_SUCCESSFULL': {'msg': 'file uploading successfull', 'code': 200}
     }
 
-    def sendResponse(self, type):
+    @staticmethod
+    def sendResponse(type):
 
         """
             Send Response for an Request 
@@ -27,8 +27,8 @@ class ErrorResponse:
         response = {
 
             'success': False,
-            'code': self.constants[type].code
-            'msg': self.constants[type].msg
+            'code': type['code'],
+            'msg': type['msg']
         }
 
         return json.dumps(response)

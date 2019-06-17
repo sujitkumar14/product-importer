@@ -16,7 +16,8 @@ class SuccessResponse:
         'PRODUCT_COUNT': {'msg': 'product count', 'code': 200}
     }
 
-    def sendResponse(self, type, data):
+    @staticmethod
+    def sendResponse(type, data):
         ''' 
             Send Response for an Request 
 
@@ -26,10 +27,10 @@ class SuccessResponse:
         '''
         response = {
 
-            'success':True
+            'success':True,
             'data': data,
-            'code': self.constants[type].code
-            'msg': self.constants[type].msg
+            'code': type['code'],
+            'msg': type['msg']
         }
 
         return json.dumps(response)
