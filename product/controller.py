@@ -49,7 +49,7 @@ class Product:
         product = ProductModel()
         productData = product.getProduct(id)
         if productData != None:
-            return SuccessResponse.sendResponse(SuccessResponse.constants['PRODUCT_DATA'], {"id": productData.id, "name": productData.name, "sku": productData.sku, "description": productData.description})
+            return SuccessResponse.sendResponse(SuccessResponse.constants['PRODUCT_DATA'], {"id": productData.id, "name": productData.name, "sku": productData.sku, "description": productData.description, 'active': productData.active})
         else:
             return ErrorResponse.sendResponse(ErrorResponse.constants['PRODUCT_NOT_EXIST'])
 
@@ -76,10 +76,13 @@ class Product:
         return SuccessResponse.sendResponse(SuccessResponse.constants['PRODUCT_DATA_DELETED'], {})
 
     @staticmethod
-    def getAllProducts():
+    def getAllProducts(**kwargs):
         ''' Returns all the product. '''
         product = ProductModel()
         productData = product.getAllProducts()
+        limit = -1
+        i = 0
+
         products = []
         if productData != None:
             for p in productData:
@@ -88,7 +91,21 @@ class Product:
                 productTemp["name"] = p.name
                 productTemp["sku"] = p.sku
                 productTemp["description"] = p.description
+                productTemp["active"] = p.active
                 products.append(productTemp)
+
+        if kwargs['active'] != None:
+            products = list(filter(
+                lambda x: str(x['active']).lower() == kwargs['active'], products))
+        elif kwargs['name'] != None:
+            products = list(filter(
+                lambda x: x['name'] == kwargs['name'], products))
+        elif kwargs['sku'] != None:
+            products = list(filter(
+                lambda x: x['sku'] == kwargs['sku'], products))
+        elif kwargs['limit'] != None:
+            products = products[0:int(kwargs['limit'])]
+
         return SuccessResponse.sendResponse(SuccessResponse.constants['PRODUCT_DATA'], products)
 
     @staticmethod

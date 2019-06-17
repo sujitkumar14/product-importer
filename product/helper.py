@@ -3,6 +3,8 @@ from product.model import Product as ProductModel
 import uuid
 import asyncio
 import random
+
+
 class Product:
 
     async def addProduct(self, **kwargs):
@@ -20,13 +22,15 @@ class Product:
         sku = kwargs['sku']
         id = str(uuid.uuid4())
         description = kwargs['description']
-        active = random.choice([True,False])
+        active = kwargs['active']
+        if kwargs['active'] == None:
+            active = random.choice([True, False])
 
         product = ProductModel()
         productData = product.getProductBySku(sku)
         if productData == None:
             return product.insertProduct(
-                id=id, description=description, sku=sku, name=name,active=active)
+                id=id, description=description, sku=sku, name=name, active=active)
         else:
             return product.updateProduct(sku, name=name, description=description)
 
@@ -50,9 +54,9 @@ class Product:
                 name = row[0]
                 sku = row[1]
                 description = row[2]
-                #append the async in rows to run in event loop
-                rows.append(asyncio.ensure_future(self.addProduct(name=name, sku=sku, description=description)))
+                # append the async in rows to run in event loop
+                rows.append(asyncio.ensure_future(self.addProduct(
+                    name=name, sku=sku, description=description)))
 
-            #run until completed
+            # run until completed
             loop.run_forever()
-

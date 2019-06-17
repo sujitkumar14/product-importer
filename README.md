@@ -69,7 +69,8 @@
     <b>Route:</b> /product/<pid> <br>
     <b>Method:</b> GET
 
-    
+    <b>Query Params</b>?name=,active=,sku=,limit=<br>
+
     <b> Response </b>
     ```js
         "data": {

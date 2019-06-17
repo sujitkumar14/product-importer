@@ -36,6 +36,16 @@ class Product:
         productData = ProductSchema.query.filter_by()
         return productData
 
+    def getProductByActive(self,active):
+        ''' Returns the Product Details for a active.'''
+        productData = ProductSchema.query.filter_by(active=active)
+        return productData
+    
+    def getProductByName(self,name):
+        ''' Returns the Product Details for a name. '''
+        productData = ProductSchema.query.filter_by(name=name)
+        return productData
+
     def getProductBySku(self,sku):
         ''' Returns the product Details for an SKU. '''
         productData = ProductSchema.query.filter_by(sku=sku).first()

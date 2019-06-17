@@ -30,4 +30,8 @@ def deleteAllProduct():
 
 @app.route("/product",methods=['GET'])
 def getAllProducts():
-    return Product.getAllProducts()
+    active = request.args.get('active')
+    limit = request.args.get('limit')
+    sku = request.args.get('sku')
+    name = request.args.get('name')
+    return Product.getAllProducts(name=name,active=active,limit=limit,sku=sku)
