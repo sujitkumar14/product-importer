@@ -84,7 +84,7 @@
 
 - <b>Delete product</b>
     
-    Delete a product or all product
+    Delete a product by pid or all product
 
     <b>Route:</b> /product/<pid> <br>
     <b>Method:</b> DElETE

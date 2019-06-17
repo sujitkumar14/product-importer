@@ -80,9 +80,7 @@ class Product:
         ''' Returns all the product. '''
         product = ProductModel()
         productData = product.getAllProducts()
-        limit = -1
-        i = 0
-
+       
         products = []
         if productData != None:
             for p in productData:
